@@ -4,6 +4,7 @@
   "description": "Employee database manager",
   "main": "app.js",
   "dependencies": {
+    "asciiart-logo": "^0.2.6",
     "inquirer": "^7.3.3",
     "mysql": "^2.18.1"
   },

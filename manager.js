@@ -1,4 +1,5 @@
 const inquirer = require("inquirer")
+const asciiart = require("asciiart-logo")
 const mysql = require("mysql")
 
 const connection = mysql.createConnection({
@@ -78,7 +79,7 @@ const generateDeptID = (data) => {
 
 const generateDutiesID = (data) => {
     return new Promise(function (resolve, reject) {
-        connection.query("SELECT * FROM dutie", (err, results) => {
+        connection.query("SELECT * FROM duties", (err, results) => {
             let duties_id = 0
             if (err) {
                 return reject(err)
@@ -162,7 +163,7 @@ const addEmployee = async (data) => {
     // function to add new employee
     console.log(data)
     let dept_id = await generateDeptID(data)
-    let Duties_id = await generateDutiesID(data)
+    let duties_id = await generateDutiesID(data)
     connection.query(`INSERT INTO employee (first_name, last_name, duties, department, duties_id, department_id) VALUES (?, ?, ?, ?, ?, ?)`, [data.first_name, data.last_name, data.duties, data.department, duties_id, dept_id], (err, results) => {
         if (err) throw err;
         console.log(`\nSuccessfully added ${data.first_name} ${data.last_name} to the employee directory.\n`)
@@ -205,14 +206,14 @@ const updateEmployee = ((data, prevData) => {
     const name = prevData.employee.split(' ')
     const first_name = name[0]
     const last_name = name[1]
-    if (!data.newDuties) {
+    if (!data.newduties) {
         connection.query("UPDATE employee SET department = ? WHERE first_name = ? AND last_name = ?", [data.newdepartment, first_name, last_name], (err, results) => {
             if (err) throw err;
             console.log(`\nSuccessfully updated ${prevData.employee}.\n`)
             menuReturn();
         })
-    } else if (!data.newdepartment) {
-        connection.query("UPDATE employee SET duties = ? WHERE first_name = ? AND last_name = ?", [data.newDuties, first_name, last_name], (err, results) => {
+    } else {
+        connection.query("UPDATE employee SET duties = ? WHERE first_name = ? AND last_name = ?", [data.newduties, first_name, last_name], (err, results) => {
             if (err) throw err;
             console.log(`\nSuccessfully updated ${prevData.employee}.\n`)
             menuReturn();
