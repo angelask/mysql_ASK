@@ -1,8 +1,8 @@
+
 DROP DATABASE IF EXISTS roster_db;
-
 CREATE DATABASE roster_db;
-
 USE roster_db;
+
 
 CREATE TABLE department (
 	id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -27,6 +27,7 @@ CREATE TABLE employee (
     department_id INTEGER
 );
 
+
 INSERT INTO department (name)
 VALUES ("Sales"), ("Engineering"), ("Finance"), ("Legal");
 
@@ -39,3 +40,5 @@ VALUES ("Lead Engineer", 100000, "Engineering", 2);
 SELECT * FROM department;
 SELECT * FROM employee;
 SELECT * FROM duties;
+
+SELECT * FROM roster_db.employee;
